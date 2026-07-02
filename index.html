@@ -1546,6 +1546,51 @@
             .service-card h3 { font-size: 20px; margin-bottom: 8px; }
             .service-card p { font-size: 13.5px; margin-bottom: 12px; }
         }
+
+        /* Mobile-only horizontal swipe fix for services section */
+        @media (max-width: 900px) {
+            .services-pin-section {
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                padding: 60px 0 !important;
+            }
+
+            .services-header {
+                padding: 0 0 24px 0 !important;
+            }
+
+            .horizontal-wrap {
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 20px;
+                margin: 0 -24px !important;
+                padding: 0 24px 20px !important;
+            }
+
+            /* Hide scrollbar on mobile */
+            .horizontal-wrap::-webkit-scrollbar {
+                display: none !important;
+            }
+            .horizontal-wrap {
+                -ms-overflow-style: none !important;
+                scrollbar-width: none !important;
+            }
+
+            .horizontal-track {
+                padding: 0 !important;
+                gap: 16px !important;
+            }
+
+            .service-card {
+                width: 290px !important;
+            }
+            
+            .service-card .img-wrap {
+                height: 180px !important;
+            }
+        }
     </style>
 </head>
 
