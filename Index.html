@@ -809,10 +809,6 @@
         /* ===== Why choose / process ===== */
         .process {
             background: var(--paper);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            box-sizing: border-box;
         }
 
         .process .section-head {
@@ -1874,8 +1870,8 @@
                                 <p>Our team arrives early, sets up, serves and cleans — so you can just enjoy.</p>
                             </div>
                         </div>
-                        <div class="process-img">
-                            <img loading="lazy" src="final_dish.png" alt="Delicious catering dish">
+                        <div class="process-img reveal">
+                            <img loading="lazy" src="process_dish.png" alt="Delicious catering dish">
                         </div>
                     </div>
                 </div>
@@ -2232,49 +2228,18 @@
             });
         });
 
-        /* ---------- Process Section Pinning and Stagger Reveal ---------- */
-        ScrollTrigger.matchMedia({
-            "(min-width: 1025px)": function() {
-                // Set initial states via GSAP
-                gsap.set(".process-step-anim", { opacity: 0, scale: 0.8 });
-                gsap.set(".process-img", { opacity: 0, scale: 0.7, rotation: -15 });
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#process",
-                        start: "top top",
-                        end: "+=2000",
-                        pin: true,
-                        scrub: 1.2,
-                        invalidateOnRefresh: true
-                    }
-                });
-
-                const steps = gsap.utils.toArray(".process-step-anim");
-                
-                // Animate steps in sequence
-                steps.forEach((step) => {
-                    tl.to(step, { 
-                        opacity: 1, 
-                        scale: 1, 
-                        duration: 1.5,
-                        ease: "power2.out"
-                    });
-                });
-
-                // Finally reveal the dish image
-                tl.to(".process-img", { 
+        /* ---------- Process nodes stagger reveal ---------- */
+        ScrollTrigger.create({
+            trigger: ".process-steps",
+            start: "top 75%",
+            once: true,
+            onEnter: () => {
+                gsap.to(".process-step-anim", {
                     opacity: 1, 
-                    scale: 1, 
-                    rotation: 0, 
-                    duration: 2, 
-                    ease: "back.out(1.5)"
+                    duration: 0.8, 
+                    stagger: 0.25, 
+                    ease: "back.out(1.2)"
                 });
-            },
-            "(max-width: 1024px)": function() {
-                // Reset for mobile
-                gsap.set(".process-step-anim", { opacity: 1, scale: 1 });
-                gsap.set(".process-img", { opacity: 1, scale: 1, rotation: 0 });
             }
         });
 
