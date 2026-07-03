@@ -1619,6 +1619,8 @@
             .service-card.journey-card {
                 flex-direction: column;
                 height: auto;
+                opacity: 1 !important;
+                transform: none !important;
             }
             .service-card.journey-card .img-wrap {
                 width: 100%;
@@ -1630,6 +1632,15 @@
             }
             .service-card.journey-card h3 {
                 font-size: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-bg-text {
+                display: none !important;
+            }
+            .shape-divider {
+                height: 60px !important;
             }
         }
 
