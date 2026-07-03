@@ -643,78 +643,146 @@
             color: var(--maroon);
         }
 
-        /* ===== Services horizontal pin ===== */
+        /* ===== Services Vertical Journey ===== */
         .services-pin-section {
             background: var(--cream);
-            height: 100vh;
+            padding: 120px 0;
+            overflow: visible;
+        }
+
+        .services-journey-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            position: relative;
+            align-items: start;
+        }
+
+        .services-left {
+            position: sticky;
+            top: 140px;
+            height: auto;
+        }
+
+        .services-right {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .journey-timeline {
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background: rgba(140, 31, 46, 0.12);
+            border-radius: 2px;
+        }
+
+        .journey-line-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--maroon);
+            border-radius: 2px;
+        }
+
+        .services-vertical-list {
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            gap: 50px;
         }
 
-        .services-header {
-            padding: max(40px, 8vh) 0 max(20px, 4vh);
-            flex-shrink: 0;
-        }
-
-        .horizontal-track {
+        .service-card.journey-card {
+            width: 100%;
             display: flex;
-            gap: 32px;
-            padding: 0 48px;
-            width: max-content;
-        }
-
-        .service-card {
-            width: 400px;
-            flex-shrink: 0;
+            flex-direction: row;
+            height: 245px;
             background: var(--paper);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 45px -30px rgba(63, 15, 22, 0.4);
+            box-shadow: 0 15px 35px -20px rgba(63, 15, 22, 0.25);
+            position: relative;
+            opacity: 0.3;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .service-card .img-wrap {
-            height: min(280px, 35vh);
+        .service-card.journey-card.active {
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 25px 50px -25px rgba(63, 15, 22, 0.35);
+        }
+
+        .journey-node {
+            position: absolute;
+            left: -48px;
+            top: 40px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 2px solid rgba(140, 31, 28, 0.25);
+            z-index: 5;
+            transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .service-card.journey-card.active .journey-node {
+            background: var(--maroon);
+            border-color: var(--maroon);
+            transform: scale(1.3);
+            box-shadow: 0 0 12px rgba(140, 31, 46, 0.6);
+        }
+
+        .service-card.journey-card .img-wrap {
+            width: 45%;
+            height: 100%;
             overflow: hidden;
         }
 
-        .service-card .img-wrap img {
+        .service-card.journey-card .img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform .8s cubic-bezier(.25, .8, .25, 1);
+            transition: transform 0.8s cubic-bezier(.25, .8, .25, 1);
         }
 
-        .service-card:hover .img-wrap img {
+        .service-card.journey-card:hover .img-wrap img {
             transform: scale(1.08);
         }
 
-        .service-card .content {
-            padding: max(20px, 3vh) 32px;
+        .service-card.journey-card .content {
+            width: 55%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .service-card .num {
+        .service-card.journey-card .num {
             font-family: 'Fraunces', serif;
             font-style: italic;
             color: var(--gold);
             font-size: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
         }
 
-        .service-card h3 {
-            font-size: 26px;
-            margin-bottom: 12px;
+        .service-card.journey-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
-        .service-card p {
+        .service-card.journey-card p {
             color: var(--ink-soft);
-            font-size: 14.5px;
-            line-height: 1.7;
-            margin-bottom: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 14px;
         }
 
-        .service-card .learn {
+        .service-card.journey-card .learn {
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.03em;
@@ -722,13 +790,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .horizontal-wrap {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         /* ===== Signature dishes ===== */
@@ -1536,60 +1597,85 @@
             }
         }
 
-        @media(max-height: 900px) {
-            .services-header { padding: 40px 0 20px !important; }
-            .section-head { margin-bottom: 24px; }
-            .section-head h2 { font-size: 34px; }
-            .service-card { width: 320px; }
-            .service-card .img-wrap { height: 180px !important; }
-            .service-card .content { padding: 20px 24px !important; }
-            .service-card h3 { font-size: 20px; margin-bottom: 8px; }
-            .service-card p { font-size: 13.5px; margin-bottom: 12px; }
+        @media (max-width: 900px) {
+            .services-journey-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .services-left {
+                position: relative;
+                top: 0;
+            }
+            .services-right {
+                padding-left: 32px;
+            }
+            .journey-timeline {
+                left: 4px;
+            }
+            .journey-node {
+                left: -38px;
+                top: 25px;
+            }
+            .service-card.journey-card {
+                flex-direction: column;
+                height: auto;
+            }
+            .service-card.journey-card .img-wrap {
+                width: 100%;
+                height: 200px;
+            }
+            .service-card.journey-card .content {
+                width: 100%;
+                padding: 24px;
+            }
+            .service-card.journey-card h3 {
+                font-size: 20px;
+            }
         }
 
-        /* Mobile-only horizontal swipe fix for services section */
-        @media (max-width: 900px) {
-            .services-pin-section {
-                height: auto !important;
-                min-height: auto !important;
-                overflow: visible !important;
-                padding: 60px 0 !important;
-            }
-
-            .services-header {
-                padding: 0 0 24px 0 !important;
-            }
-
-            .horizontal-wrap {
-                overflow-x: auto !important;
-                overflow-y: hidden !important;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 20px;
-                margin: 0 -24px !important;
-                padding: 0 24px 20px !important;
-            }
-
-            /* Hide scrollbar on mobile */
-            .horizontal-wrap::-webkit-scrollbar {
-                display: none !important;
-            }
-            .horizontal-wrap {
-                -ms-overflow-style: none !important;
-                scrollbar-width: none !important;
-            }
-
-            .horizontal-track {
-                padding: 0 !important;
-                gap: 16px !important;
-            }
-
-            .service-card {
-                width: 290px !important;
-            }
-            
-            .service-card .img-wrap {
-                height: 180px !important;
-            }
+        /* ===== Shape Divider & Background Text Transitions ===== */
+        .shape-divider {
+            position: relative;
+            height: 120px;
+            width: 100%;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .shape-divider svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .section-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Fraunces', serif;
+            font-size: clamp(6rem, 15vw, 13rem);
+            font-weight: 900;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+        }
+        .section-bg-text.light-theme {
+            color: rgba(42, 33, 28, 0.035);
+        }
+        .section-bg-text.dark-theme {
+            color: rgba(246, 239, 227, 0.025);
+        }
+        /* Make sure container content stays in front of background text */
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+        /* Ensure specific sections are relative-positioned for bg text positioning */
+        section {
+            position: relative;
         }
     </style>
 </head>
@@ -1692,6 +1778,7 @@
             </div>
 
             <section class="about pad" id="about">
+                <div class="section-bg-text light-theme about-bg-text">HERITAGE</div>
                 <div class="container about-grid">
                     <div class="about-visual">
                         <img loading="lazy" class="reveal"
@@ -1729,104 +1816,122 @@
             </section>
 
             <section class="services-pin-section" id="services">
-                <div class="container services-header">
-                    <div class="section-head">
-                        <div>
+                <div class="section-bg-text light-theme services-bg-text">SERVICES</div>
+                <div class="container services-journey-container">
+                    <div class="services-left">
+                        <div class="section-head">
                             <div class="eyebrow reveal">What We Cater</div>
                             <h2 class="reveal">Premium Catering For Every Kind Of Celebration</h2>
+                            <p class="reveal" style="margin-top:20px; font-size:15px; color:var(--ink-soft); line-height:1.7;">Embark on a culinary journey — each service is tailored to create unforgettable moments.</p>
                         </div>
-                        <p class="reveal">Scroll to explore — each service is tailored, from menu design to on-site
-                            presentation.</p>
                     </div>
-                </div>
-                <div class="horizontal-wrap">
-                    <div class="horizontal-track" id="horizontalTrack">
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="wedding_catering.png"
-                                    alt="Wedding catering"></div>
-                            <div class="content">
-                                <span class="num">01</span>
-                                <h3>Wedding Catering</h3>
-                                <p>Grand multi-cuisine spreads, live counters and impeccable service for the biggest day
-                                    of your life.</p>
-                                <span class="learn">Explore Menus →</span>
-                            </div>
+                    <div class="services-right">
+                        <div class="journey-timeline">
+                            <div class="journey-line-progress"></div>
                         </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="corporate_events.png"
-                                    alt="Corporate catering"></div>
-                            <div class="content">
-                                <span class="num">02</span>
-                                <h3>Corporate Events</h3>
-                                <p>Polished, punctual catering for conferences, launches and milestone business
-                                    celebrations.</p>
-                                <span class="learn">Explore Menus →</span>
+                        <div class="services-vertical-list">
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="wedding_catering.png"
+                                        alt="Wedding catering"></div>
+                                <div class="content">
+                                    <span class="num">01</span>
+                                    <h3>Wedding Catering</h3>
+                                    <p>Grand multi-cuisine spreads, live counters and impeccable service for the biggest day
+                                        of your life.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="birthday_parties.png"
-                                    alt="Birthday catering"></div>
-                            <div class="content">
-                                <span class="num">03</span>
-                                <h3>Birthdays & Parties</h3>
-                                <p>Playful live counters and crowd favourites that make milestone birthdays deliciously
-                                    memorable.</p>
-                                <span class="learn">Explore Menus →</span>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="corporate_events.png"
+                                        alt="Corporate catering"></div>
+                                <div class="content">
+                                    <span class="num">02</span>
+                                    <h3>Corporate Events</h3>
+                                    <p>Polished, punctual catering for conferences, launches and milestone business
+                                        celebrations.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="housewarming_catering.png"
-                                    alt="Housewarming catering"></div>
-                            <div class="content">
-                                <span class="num">04</span>
-                                <h3>Housewarming</h3>
-                                <p>Warm, traditional breakfast and lunch spreads to bless a new home the right way.</p>
-                                <span class="learn">Explore Menus →</span>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="birthday_parties.png"
+                                        alt="Birthday catering"></div>
+                                <div class="content">
+                                    <span class="num">03</span>
+                                    <h3>Birthdays & Parties</h3>
+                                    <p>Playful live counters and crowd favourites that make milestone birthdays deliciously
+                                        memorable.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="engagement_catering.png"
-                                    alt="Engagement catering"></div>
-                            <div class="content">
-                                <span class="num">05</span>
-                                <h3>Engagements</h3>
-                                <p>Elegant plated and buffet options designed around your families' favourite dishes.
-                                </p>
-                                <span class="learn">Explore Menus →</span>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="housewarming_catering.png"
+                                        alt="Housewarming catering"></div>
+                                <div class="content">
+                                    <span class="num">04</span>
+                                    <h3>Housewarming</h3>
+                                    <p>Warm, traditional breakfast and lunch spreads to bless a new home the right way.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=70&w=600&q=70&auto=format&fit=crop"
-                                    alt="Beach Parties"></div>
-                            <div class="content">
-                                <span class="num">06</span>
-                                <h3>Beach Parties</h3>
-                                <p>Vibrant, breezy coastal setups with fresh grills and refreshing mocktail counters.</p>
-                                <span class="learn">Explore Menus →</span>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="engagement_catering.png"
+                                        alt="Engagement catering"></div>
+                                <div class="content">
+                                    <span class="num">05</span>
+                                    <h3>Engagements</h3>
+                                    <p>Elegant plated and buffet options designed around your families' favourite dishes.
+                                    </p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="service-card">
-                            <div class="img-wrap"><img loading="lazy"
-                                    src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=70&w=600&q=70&auto=format&fit=crop"
-                                    alt="Award Functions"></div>
-                            <div class="content">
-                                <span class="num">07</span>
-                                <h3>Award Functions</h3>
-                                <p>Sophisticated dining experiences tailored for high-profile industry events and galas.</p>
-                                <span class="learn">Explore Menus →</span>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="https://images.unsplash.com/photo-1544148103-0773bf10d330?q=70&w=600&q=70&auto=format&fit=crop"
+                                        alt="Beach Parties"></div>
+                                <div class="content">
+                                    <span class="num">06</span>
+                                    <h3>Beach Parties</h3>
+                                    <p>Vibrant, breezy coastal setups with fresh grills and refreshing mocktail counters.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
+                            </div>
+                            <div class="service-card journey-card">
+                                <div class="journey-node"></div>
+                                <div class="img-wrap"><img loading="lazy"
+                                        src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=70&w=600&q=70&auto=format&fit=crop"
+                                        alt="Award Functions"></div>
+                                <div class="content">
+                                    <span class="num">07</span>
+                                    <h3>Award Functions</h3>
+                                    <p>Sophisticated dining experiences tailored for high-profile industry events and galas.</p>
+                                    <span class="learn">Explore Menus →</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- Shape Divider: Cream to Maroon Dark -->
+            <div class="shape-divider" style="background: var(--cream);">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                    <path d="M0,0 C360,160 1080,160 1440,0 L1440,200 L0,200 Z" fill="var(--maroon-dark)" />
+                </svg>
+            </div>
+
             <section class="dishes pad" id="dishes">
+                <div class="section-bg-text dark-theme dishes-bg-text">SIGNATURE</div>
                 <div class="container">
                     <div class="section-head">
                         <div>
@@ -1836,28 +1941,28 @@
                         <p class="reveal">A handful of the dishes guests ask us to bring back, event after event.</p>
                     </div>
                     <div class="dish-grid">
-                        <div class="dish-card reveal">
+                        <div class="dish-card">
                             <div class="dish-thumb"><img loading="lazy"
                                     src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=70&w=400&q=70&auto=format&fit=crop"
                                     alt="Thali"></div>
                             <h4>Grand Thali <span class="price">₹450</span></h4>
                             <span class="tag">Veg · Full Meal</span>
                         </div>
-                        <div class="dish-card reveal">
+                        <div class="dish-card">
                             <div class="dish-thumb"><img loading="lazy"
                                     src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=70&w=400&q=70&auto=format&fit=crop"
                                     alt="Curry"></div>
                             <h4>Chettinad Curry <span class="price">₹320</span></h4>
                             <span class="tag">Non-Veg · Main Course</span>
                         </div>
-                        <div class="dish-card reveal">
+                        <div class="dish-card">
                             <div class="dish-thumb"><img loading="lazy"
                                     src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=70&w=400&q=70&auto=format&fit=crop"
                                     alt="Buffet spread"></div>
                             <h4>Live Dosa Counter <span class="price">₹280</span></h4>
                             <span class="tag">Veg · Live Counter</span>
                         </div>
-                        <div class="dish-card reveal">
+                        <div class="dish-card">
                             <div class="dish-thumb"><img loading="lazy"
                                     src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=70&w=400&q=70&auto=format&fit=crop"
                                     alt="Curry bowl"></div>
@@ -1868,7 +1973,15 @@
                 </div>
             </section>
 
+            <!-- Shape Divider: Maroon Dark to Paper -->
+            <div class="shape-divider" style="background: var(--maroon-dark);">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                    <path d="M0,200 C360,60 1080,60 1440,200 L1440,200 L0,200 Z" fill="var(--paper)" />
+                </svg>
+            </div>
+
             <section class="process pad" id="process" style="background: var(--paper);">
+                <div class="section-bg-text light-theme process-bg-text">OUR PROCESS</div>
                 <div class="container">
                     <div class="section-head">
                         <h2 class="reveal">How We Work</h2>
@@ -1916,6 +2029,7 @@
             </section>
 
             <section class="why pad">
+                <div class="section-bg-text light-theme why-bg-text">QUALITY</div>
                 <div class="container">
                     <div class="section-head">
                         <div>
@@ -1925,7 +2039,7 @@
                         <p class="reveal">The details our clients mention most, event after event.</p>
                     </div>
                     <div class="why-grid">
-                        <div class="why-card reveal">
+                        <div class="why-card">
                             <div class="why-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <path d="M4 21c4-6 12-6 16 0M12 3v9M8 6l4-3 4 3" stroke="currentColor"
                                         stroke-width="1.6" />
@@ -1933,7 +2047,7 @@
                             <h4>Authentic Taste</h4>
                             <p>Traditional recipes passed through generations of family cooks.</p>
                         </div>
-                        <div class="why-card reveal">
+                        <div class="why-card">
                             <div class="why-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
                                     <path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.6" />
@@ -1941,7 +2055,7 @@
                             <h4>Service Excellence</h4>
                             <p>Trained hospitality staff who anticipate needs before you ask.</p>
                         </div>
-                        <div class="why-card reveal">
+                        <div class="why-card">
                             <div class="why-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <path d="M12 2l2.4 6.5L21 10l-5.5 4.6L17 21l-5-3.5L7 21l1.5-6.4L3 10l6.6-1.5z"
                                         stroke="currentColor" stroke-width="1.4" />
@@ -1949,7 +2063,7 @@
                             <h4>Best Quality</h4>
                             <p>Sourced fresh daily — no shortcuts, no frozen substitutes.</p>
                         </div>
-                        <div class="why-card reveal">
+                        <div class="why-card">
                             <div class="why-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none">
                                     <path
                                         d="M12 21s-7-4.4-9.5-9C.7 8 3 4 7 4c2 0 4 1 5 3 1-2 3-3 5-3 4 0 6.3 4 4.5 8-2.5 4.6-9.5 9-9.5 9z"
@@ -1963,6 +2077,7 @@
             </section>
 
             <section class="testi-new pad" id="testimonials">
+                <div class="section-bg-text light-theme testimonials-bg-text">REVIEWS</div>
                 <div class="container testi-new-grid">
                     <div class="testi-left reveal">
                         <div class="eyebrow">Testimonials</div>
@@ -2016,6 +2131,7 @@
             </section>
 
             <section class="videos-section pad" id="videos">
+                <div class="section-bg-text light-theme videos-bg-text">MOMENTS</div>
                 <div class="container">
                     <div class="section-head">
                         <div>
@@ -2051,7 +2167,15 @@
                 </div>
             </section>
 
+            <!-- Shape Divider: Paper to Maroon Dark -->
+            <div class="shape-divider" style="background: var(--paper);">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                    <path d="M0,0 C360,160 1080,160 1440,0 L1440,200 L0,200 Z" fill="var(--maroon-dark)" />
+                </svg>
+            </div>
+
             <section class="gallery pad" id="gallery">
+                <div class="section-bg-text dark-theme gallery-bg-text">GALLERY</div>
                 <div class="container">
                     <div class="section-head">
                         <div>
@@ -2080,6 +2204,13 @@
                 </div>
             </section>
 
+            <!-- Shape Divider: Maroon Dark to Gold -->
+            <div class="shape-divider" style="background: var(--maroon-dark);">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                    <path d="M0,200 C360,60 1080,60 1440,200 L1440,200 L0,200 Z" fill="var(--gold)" />
+                </svg>
+            </div>
+
             <section class="cta-band" id="contact">
                 <div class="container">
                     <div class="eyebrow reveal" style="justify-content:center;color:var(--maroon-dark);">Let's Talk
@@ -2088,6 +2219,13 @@
                     <a href="tel:+919677185105" class="btn reveal"><span>Call +91 9677185105</span></a>
                 </div>
             </section>
+
+            <!-- Shape Divider: Gold to Maroon Dark -->
+            <div class="shape-divider" style="background: var(--gold);">
+                <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                    <path d="M0,0 C360,160 1080,160 1440,0 L1440,200 L0,200 Z" fill="var(--maroon-dark)" />
+                </svg>
+            </div>
 
             <footer>
                 <div class="container">
@@ -2249,6 +2387,89 @@
             });
         });
 
+        /* ---------- Parallax scrolling background texts ---------- */
+        gsap.to('.about-bg-text', {
+            xPercent: -15,
+            scrollTrigger: { trigger: '.about', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.services-bg-text', {
+            xPercent: 15,
+            scrollTrigger: { trigger: '.services-pin-section', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.dishes-bg-text', {
+            xPercent: -15,
+            scrollTrigger: { trigger: '#dishes', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.process-bg-text', {
+            xPercent: 15,
+            scrollTrigger: { trigger: '#process', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.why-bg-text', {
+            xPercent: -15,
+            scrollTrigger: { trigger: '.why', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.testimonials-bg-text', {
+            xPercent: 15,
+            scrollTrigger: { trigger: '#testimonials', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.videos-bg-text', {
+            xPercent: -15,
+            scrollTrigger: { trigger: '#videos', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+        gsap.to('.gallery-bg-text', {
+            xPercent: 15,
+            scrollTrigger: { trigger: '#gallery', start: 'top bottom', end: 'bottom top', scrub: 1 }
+        });
+
+        /* ---------- Card Stagger Reveals ---------- */
+        gsap.fromTo('#dishes .dish-card', 
+            { opacity: 0, y: 50 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.9, 
+                stagger: 0.15, 
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.dish-grid',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('.why .why-card', 
+            { opacity: 0, y: 50 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.9, 
+                stagger: 0.15, 
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.why-grid',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
+        gsap.fromTo('#videos .v-card', 
+            { opacity: 0, y: 50 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.9, 
+                stagger: 0.15, 
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.videos-grid',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                }
+            }
+        );
+
         /* ---------- Process nodes stagger reveal ---------- */
         ScrollTrigger.create({
             trigger: ".process-steps",
@@ -2278,24 +2499,28 @@
             });
         });
 
-        /* ---------- Horizontal pinned services ---------- */
-        ScrollTrigger.matchMedia({
-            "(min-width: 900px)": function () {
-                const track = document.getElementById('horizontalTrack');
-                let scrollLength = track.scrollWidth - window.innerWidth + 96;
-                gsap.to(track, {
-                    x: -scrollLength,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '.services-pin-section',
-                        start: 'top top',
-                        end: () => '+=' + (scrollLength + window.innerHeight * 0.4),
-                        scrub: true,
-                        pin: true,
-                        invalidateOnRefresh: true
-                    }
-                });
+        /* ---------- Vertical journey services ---------- */
+        gsap.fromTo('.journey-line-progress', 
+            { height: '0%' },
+            {
+                height: '100%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.services-vertical-list',
+                    start: 'top 40%',
+                    end: 'bottom 60%',
+                    scrub: true
+                }
             }
+        );
+
+        document.querySelectorAll('.service-card.journey-card').forEach((card) => {
+            ScrollTrigger.create({
+                trigger: card,
+                start: 'top 70%',
+                end: 'bottom 30%',
+                toggleClass: 'active'
+            });
         });
 
         /* ---------- Stacked Cards Cycling ---------- */
